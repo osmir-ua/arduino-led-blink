@@ -7,6 +7,35 @@
 #define OFF_state "0"
 #define version 1
 
+#define time_quantum 100 //quantum of time (in milliseconds). Used in Binking pattern matrix
+
+/* 
+* Binking pattern matrix
+* 
+* Matrix is set of blinking pattern arrays
+*
+* Each of them is array of booleans 
+*  - 1 (or other any nonzero value) turns LED ON for quantum of time
+*  - 0 turns LED OFF for quantum of time   
+*
+* Matrix index is set of blinking pattern arrays labels
+*/
+
+String blinkMatrixIndex[] = {
+  "Вимкнути",
+  "Просте мигання",
+  "Довге мигання",
+  "Сиuнал SOS"
+};
+
+bool blinkMatrix[][] = {
+  {},
+  {1,0},
+  {1,1,1,0},
+  {1,0,1,0,1,0, 1,1,1,0,1,1,1,0,1,1,1,0, 1,0,1,0,1,0}
+};
+
+// ---------------------------------
 String currentState = "-";
 
 void setup() {
@@ -17,11 +46,17 @@ void setup() {
     Serial.print("Привіт...\n");
     Serial.print("Починаємо працювати...\n-------------------\n");
     
-    Serial.print(".... МЕНЮ .... \n1 - вмк.\n2 - вимк.\n\n");
-    
+    Serial.println(".... МЕНЮ ....");
+
+    for(int i = 0; i <= sizeof(blinkMatrixIndex); i++){
+      Serial.println(blinkMatrixIndex[i]);
+    }
+
+    Serial.println(" ");
     Serial.print("Сurrent state is "); Serial.println(currentState);
     
 }
+
 
 void blinkLED() {
   if (currentState == ON_state) {
