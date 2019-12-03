@@ -28,7 +28,7 @@ String blinkMatrixIndex[] = {
   "Сиuнал SOS"
 };
 
-bool blinkMatrix[][] = {
+bool blinkMatrix[][500] = {
   {},
   {1,0},
   {1,1,1,0},
@@ -48,8 +48,11 @@ void setup() {
     
     Serial.println(".... МЕНЮ ....");
 
-    for(int i = 0; i <= sizeof(blinkMatrixIndex); i++){
-      Serial.println(blinkMatrixIndex[i]);
+    Serial.print("sizeof(blinkMatrixIndex) = "); Serial.println(sizeof(blinkMatrixIndex));
+    Serial.println(" ");
+
+    for(unsigned int i = 0; i <= sizeof(blinkMatrixIndex); i++){
+      Serial.print(i); Serial.print(" - "); Serial.println(blinkMatrixIndex[i]);
     }
 
     Serial.println(" ");
