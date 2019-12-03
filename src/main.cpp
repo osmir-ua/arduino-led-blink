@@ -19,7 +19,7 @@ void setup() {
     
     Serial.print(".... МЕНЮ .... \n1 - вмк.\n2 - вимк.\n\n");
     
-    Serial.print("current state is "); Serial.println(currentState);
+    Serial.print("Сurrent state is "); Serial.println(currentState);
     
 }
 
@@ -44,7 +44,7 @@ void loop() {
       Serial.println(data);
       
       if (data == currentState) {
-        Serial.print("Нічного не змінилось. ");
+        Serial.print("Нічого не змінилось. ");
       }
       
       else if (data == ON_state) { 
