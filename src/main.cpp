@@ -5,6 +5,7 @@
 #define idle_time_period 1000
 #define ON_state "1"
 #define OFF_state "0"
+#define version 1
 
 String currentState = "-";
 
