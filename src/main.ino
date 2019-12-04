@@ -31,7 +31,7 @@ String blinkMatrixIndex[] = {
 };
 
 bool blinkMatrix[][500] = {
-  {},
+  {0},
   {1,0},
   {1,1,1,0},
   {1,0,1,0,1,0, 1,1,1,0,1,1,1,0,1,1,1,0, 1,0,1,0,1,0}
@@ -39,6 +39,13 @@ bool blinkMatrix[][500] = {
 
 // ---------------------------------
 String currentState = "-";
+
+unsigned int arrayIndex;
+unsigned int arrayPosIndex;
+unsigned int patternID;
+
+unsigned long lastTime = millis();
+
 
 void setup() {
 
@@ -59,48 +66,59 @@ void setup() {
 
     Serial.println(" ");
     Serial.print("Сurrent state is "); Serial.println(currentState);
+
     
 }
 
 
-void blinkLED() {
-  if (currentState == ON_state) {
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(light_time_period);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(idle_time_period);
+void processBlink(unsigned int patternId){
+
+  unsigned long currentTime = millis();
+  
+  if(!patternId || (currentTime - lastTime) < time_quantum ) return;
+
+  if (!arrayIndex || patternId != arrayIndex) {
+    arrayIndex = patternId;
+    
+    if (!blinkMatrixIndex[arrayIndex]) return;
+    
+    arrayPosIndex = 0;
   }
-  else if ( currentState == OFF_state) {
-    digitalWrite(LED_BUILTIN, LOW);
-  }  
+
+  if (blinkMatrixIndex[arrayIndex][arrayPosIndex]){
+    
+    if (blinkMatrixIndex[arrayIndex][arrayPosIndex] == 0) digitalWrite(LED_BUILTIN, LOW);
+    else digitalWrite(LED_BUILTIN, HIGH);
+
+    lastTime = currentTime;    
+    arrayPosIndex++;
+
+    if (!blinkMatrixIndex[arrayIndex][arrayPosIndex]) arrayPosIndex = 0;
+  }
 }
 
+nvl()
+
 void loop() {
-    String data;
+    int data;
   
     if (Serial.available() > 0){
-      data = Serial.readString();
+      data = Serial.read();
       
       Serial.println(data);
       
       if (data == currentState) {
         Serial.print("Нічого не змінилось. ");
       }
-      
-      else if (data == ON_state) { 
-        Serial.print("Вмикаємо ... "); 
-        currentState = ON_state;
-      }
-      
-      else if (data == OFF_state) { 
-        Serial.print("Вимикаємо ... "); 
-        currentState = OFF_state;
+      else{
+
       }
 
-    Serial.print("(current state is "); Serial.print(currentState); Serial.println(")");
+      Serial.print("(current state is "); Serial.print(currentState); Serial.println(")");
 
     }
-    
-    blinkLED();
+
+
+    processBlink(arrayIndex);
 
 }
