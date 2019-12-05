@@ -2,11 +2,6 @@
 
 #define LED 13
 
-// #define light_time_period 100
-// #define idle_time_period 1000
-// #define ON_state "1"
-// #define OFF_state "0"
-
 #define time_quantum 100 //quantum of time (in milliseconds). Used in Binking pattern matrix
 
 /* 
