@@ -27,7 +27,7 @@ String blinkMatrixIndex[] = {
   "Вимкнути",
   "Просте мигання",
   "Довге мигання",
-  "Сиuнал SOS"
+  "Сигнал SOS"
 };
 
 bool blinkMatrix[][500] = {
