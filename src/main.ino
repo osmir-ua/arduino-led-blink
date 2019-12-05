@@ -27,7 +27,7 @@ String blinkMatrixIndex[] = {
   "Вимкнути",
   "Просте мигання",
   "Довге мигання",
-  "Сиuнал SOS"
+  "Сигнал SOS"
 };
 
 bool blinkMatrix[][500] = {
@@ -38,11 +38,10 @@ bool blinkMatrix[][500] = {
 };
 
 // ---------------------------------
-String currentState = "-";
+unsigned int currentState;
 
 unsigned int arrayIndex;
 unsigned int arrayPosIndex;
-unsigned int patternID;
 
 unsigned long lastTime = millis();
 
@@ -75,6 +74,7 @@ void processBlink(unsigned int patternId){
 
   unsigned long currentTime = millis();
   
+  // if patternId is null of time interval doesn't pass -- do nothing
   if(!patternId || (currentTime - lastTime) < time_quantum ) return;
 
   if (!arrayIndex || patternId != arrayIndex) {
@@ -97,28 +97,39 @@ void processBlink(unsigned int patternId){
   }
 }
 
-nvl()
+// nvl()
 
 void loop() {
-    int data;
-  
+    String data;
+    unsigned int patternID;
+    
     if (Serial.available() > 0){
-      data = Serial.read();
+      data = Serial.readString();
       
-      Serial.println(data);
+      if (isdigit(data.charAt(0))) {
+        patternID = (unsigned int)data.toInt();
+      }
+
+      // status message
+      Serial.print("Entered : "); 
+        Serial.print(data);  
+        Serial.print(" ("); 
+        Serial.write(patternID);
+        Serial.println(")");
       
-      if (data == currentState) {
+
+      if (patternID == currentState) {
         Serial.print("Нічого не змінилось. ");
       }
       else{
-
+        currentState = patternID;
       }
 
-      Serial.print("(current state is "); Serial.print(currentState); Serial.println(")");
+      Serial.print("(current state is "); Serial.write(currentState); Serial.println(")");
 
     }
 
 
-    processBlink(arrayIndex);
+    processBlink(patternID);
 
 }
