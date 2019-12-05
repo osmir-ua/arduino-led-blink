@@ -1,4 +1,4 @@
-//#include <Arduino.h>
+#include <Arduino.h>
 
 #define LED 13
 
@@ -44,6 +44,12 @@ void setup() {
     pinMode(LED,OUTPUT);
     
     Serial.begin(9600);
+    while (!Serial)
+    {
+      ;
+    }
+    
+
     Serial.print("Привіт...\n");
     Serial.print("Починаємо працювати...\n-------------------\n");
     
@@ -51,11 +57,11 @@ void setup() {
 
     Serial.print("sizeof(blinkMatrixIndex) = "); Serial.println(sizeof(blinkMatrixIndex));
     Serial.println(" ");
-
+/*
     for(unsigned int i = 0; i <= sizeof(blinkMatrixIndex); i++){
-      Serial.print(i); Serial.print(" - "); Serial.write(*blinkMatrixIndex[i]); Serial.println();
+      Serial.print(i); Serial.print(" - "); Serial.print(blinkMatrixIndex[i]); Serial.println();
     }
-
+*/
     Serial.println();
     Serial.print("Сurrent state is "); Serial.write(currentState); Serial.println();
 
@@ -90,8 +96,6 @@ void processBlink(unsigned int patternId){
   }
 }
 
-// nvl()
-
 void loop() {
     String data;
     unsigned int patternID;
@@ -122,6 +126,6 @@ void loop() {
 
     }
 
-    processBlink(patternID);
+   // processBlink(patternID);
 
 }
