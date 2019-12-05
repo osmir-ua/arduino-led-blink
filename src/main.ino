@@ -53,7 +53,7 @@ void setup() {
     Serial.println(" ");
 
     for(unsigned int i = 0; i <= sizeof(blinkMatrixIndex); i++){
-      Serial.print(i); Serial.print(" - "); Serial.println(blinkMatrixIndex[i]);
+      Serial.print(i); Serial.print(" - "); Serial.write(blinkMatrixIndex[i]); Serial.println();
     }
 
     Serial.println();
