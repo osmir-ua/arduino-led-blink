@@ -1,4 +1,4 @@
-#include <Arduino.h>
+//#include <Arduino.h>
 
 #define LED 13
 
@@ -53,7 +53,7 @@ void setup() {
     Serial.println(" ");
 
     for(unsigned int i = 0; i <= sizeof(blinkMatrixIndex); i++){
-      Serial.print(i); Serial.print(" - "); Serial.write(blinkMatrixIndex[i]); Serial.println();
+      Serial.print(i); Serial.print(" - "); Serial.write(*blinkMatrixIndex[i]); Serial.println();
     }
 
     Serial.println();
