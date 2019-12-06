@@ -2,8 +2,9 @@
 
 #define LED 13
 
-#define time_quantum 1000 //quantum of time (in milliseconds). Used in Binking pattern matrix
+#define time_quantum 10000 // 10 sec. Quantum of time (in milliseconds). Used in Binking pattern matrix
 #define patternMaxrix1stLevelSize 4
+#define patternMaxrix2dnLevelSize 1000
 
 /* 
 * Binking pattern matrix
@@ -24,7 +25,7 @@ String blinkMatrixIndex[patternMaxrix1stLevelSize] = {
   "Сигнал SOS"
 };
 
-bool blinkMatrix[patternMaxrix1stLevelSize][500] = {
+bool blinkMatrix[patternMaxrix1stLevelSize][patternMaxrix2dnLevelSize] = {
   {0},
   {1,0},
   {1,1,1,0},
@@ -80,6 +81,11 @@ void processBlink(unsigned int patternId){
   // if patternId is null of time interval doesn't pass -- do nothing
   if(!patternId || (currentTime - lastTime) < time_quantum ) return;
 
+  //debugging message
+  Serial.print("arrayIndex = "); Serial.println(arrayIndex); 
+  Serial.print("arrayPosIndex = "); Serial.println(arrayPosIndex); 
+  Serial.print("blinkMatrixIndex[arrayIndex] = "); Serial.println(blinkMatrixIndex[arrayIndex]); 
+
   if (!arrayIndex || patternId != arrayIndex) {
     arrayIndex = patternId;
     
@@ -131,7 +137,7 @@ void loop() {
 
     }
 
-    processBlink(patternID);
+    processBlink(currentState);
    
     delay(time_quantum /*/ 10*/);
 }
