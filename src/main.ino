@@ -56,9 +56,6 @@ void setup() {
     
     Serial.println(".... МЕНЮ ....");
 
-    // Serial.print("sizeof(blinkMatrixIndex) = "); Serial.println(sizeof(blinkMatrixIndex));
-    // Serial.println(" ");
-
     for(unsigned int i = 0; i < patternMaxrix1stLevelSize; i++){
       Serial.print(i); Serial.print(" - "); Serial.println(blinkMatrixIndex[i]);
     }
@@ -112,7 +109,7 @@ void loop() {
       Serial.print("Entered : "); 
         Serial.print(data);  
         Serial.print(" ("); 
-        Serial.write(patternID);
+        Serial.print(patternID);
         Serial.println(")");
       
 
@@ -123,10 +120,11 @@ void loop() {
         currentState = patternID;
       }
 
-      Serial.print("(current state is "); Serial.write(currentState); Serial.println(")");
+      Serial.print("(current state is "); Serial.print(currentState); Serial.println(")");
 
     }
 
-   // processBlink(patternID);
+    processBlink(patternID);
+   
     delay(time_quantum / 10);
 }
