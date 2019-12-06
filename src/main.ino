@@ -2,7 +2,7 @@
 
 #define LED 13
 
-#define time_quantum 10000 //quantum of time (in milliseconds). Used in Binking pattern matrix
+#define time_quantum 1000 //quantum of time (in milliseconds). Used in Binking pattern matrix
 #define patternMaxrix1stLevelSize 4
 
 /* 
@@ -133,5 +133,5 @@ void loop() {
 
     processBlink(patternID);
    
-    delay(time_quantum / 10);
+    delay(time_quantum /*/ 10*/);
 }
