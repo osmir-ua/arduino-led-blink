@@ -137,7 +137,7 @@ void processBlink(unsigned int patternId){
 }
 
 void loop() {
-/*    String data;
+    String data;
     unsigned int patternID = 0;
     
     if (Serial.available() > 0){
@@ -169,5 +169,5 @@ void loop() {
     processBlink(currentState);
    
     delay(time_quantum / 3);
-    */
+
 }
