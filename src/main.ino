@@ -71,6 +71,12 @@ void processBlink(unsigned int patternId){
 
   unsigned long currentTime = millis();
   
+  //debugging message
+  Serial.println();
+  Serial.print("patternId = "); Serial.println(patternId); 
+  Serial.print("currentTime = "); Serial.println(currentTime); 
+  Serial.print("(currentTime - lastTime) = "); Serial.println(currentTime - lastTime); 
+
   // if patternId is null of time interval doesn't pass -- do nothing
   if(!patternId || (currentTime - lastTime) < time_quantum ) return;
 
@@ -92,6 +98,7 @@ void processBlink(unsigned int patternId){
 
     if (!blinkMatrixIndex[arrayIndex][arrayPosIndex]) arrayPosIndex = 0;
   }
+
 }
 
 void loop() {
