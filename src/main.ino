@@ -2,7 +2,8 @@
 
 #define LED 13
 
-#define time_quantum 100 //quantum of time (in milliseconds). Used in Binking pattern matrix
+#define time_quantum 1000 //quantum of time (in milliseconds). Used in Binking pattern matrix
+#define patternMaxrix1stLevelSize 4
 
 /* 
 * Binking pattern matrix
@@ -16,14 +17,14 @@
 * Matrix index is set of blinking pattern arrays labels
 */
 
-String blinkMatrixIndex[] = {
+String blinkMatrixIndex[patternMaxrix1stLevelSize] = {
   "Вимкнути",
   "Просте мигання",
   "Довге мигання",
   "Сигнал SOS"
 };
 
-bool blinkMatrix[][500] = {
+bool blinkMatrix[patternMaxrix1stLevelSize][500] = {
   {0},
   {1,0},
   {1,1,1,0},
@@ -55,13 +56,13 @@ void setup() {
     
     Serial.println(".... МЕНЮ ....");
 
-    Serial.print("sizeof(blinkMatrixIndex) = "); Serial.println(sizeof(blinkMatrixIndex));
-    Serial.println(" ");
-/*
-    for(unsigned int i = 0; i <= sizeof(blinkMatrixIndex); i++){
-      Serial.print(i); Serial.print(" - "); Serial.print(blinkMatrixIndex[i]); Serial.println();
+    // Serial.print("sizeof(blinkMatrixIndex) = "); Serial.println(sizeof(blinkMatrixIndex));
+    // Serial.println(" ");
+
+    for(unsigned int i = 0; i < patternMaxrix1stLevelSize; i++){
+      Serial.print(i); Serial.print(" - "); Serial.println(blinkMatrixIndex[i]);
     }
-*/
+
     Serial.println();
     Serial.print("Сurrent state is "); Serial.write(currentState); Serial.println();
 
@@ -127,5 +128,5 @@ void loop() {
     }
 
    // processBlink(patternID);
-
+    delay(time_quantum / 10);
 }
