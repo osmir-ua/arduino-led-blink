@@ -61,8 +61,7 @@ void echoMatrix(){
     Serial.println("========================"); Serial.println();
 }
 
-
-
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 void setup() {
 
     pinMode(LED,OUTPUT);
@@ -115,9 +114,9 @@ void processBlink(unsigned int patternId){
 
 
   //debugging message
-  Serial.print("blinkMatrixIndex[arrayIndex][arrayPosIndex] = "); Serial.println(int(blinkMatrixIndex[arrayIndex][arrayPosIndex])); 
+  Serial.print("blinkMatrix[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrix[arrayIndex].charAt(arrayPosIndex)); 
 
-  int theBit = blinkMatrixIndex[arrayIndex][arrayPosIndex];
+  int theBit = blinkMatrix[arrayIndex].charAt(arrayPosIndex);
 
   //debugging message
   Serial.print("theBit = "); Serial.println(theBit); 
@@ -130,10 +129,9 @@ void processBlink(unsigned int patternId){
   arrayPosIndex++;
 
   //debugging message
-  Serial.print("New blinkMatrixIndex[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrixIndex[arrayIndex][arrayPosIndex]); 
+  Serial.print("New blinkMatrix[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrix[arrayIndex].charAt(arrayPosIndex)); 
 
-
-  theBit = byte(blinkMatrixIndex[arrayIndex][arrayPosIndex]);
+  theBit = blinkMatrix[arrayIndex].charAt(arrayPosIndex);
   if (!(theBit == 0 || theBit == 1)) 
     arrayPosIndex = 0;
 }
