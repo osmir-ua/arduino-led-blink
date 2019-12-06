@@ -103,7 +103,7 @@ void processBlink(unsigned int patternId){
 
 void loop() {
     String data;
-    unsigned int patternID;
+    unsigned int patternID = 0;
     
     if (Serial.available() > 0){
       data = Serial.readString();
