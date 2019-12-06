@@ -41,20 +41,7 @@ unsigned int arrayPosIndex;
 unsigned long lastTime = millis();
 
 
-void setup() {
-
-    pinMode(LED,OUTPUT);
-    
-    Serial.begin(9600);
-    while (!Serial)
-    {
-      ;
-    }
-    
-
-    Serial.print("Привіт...\n");
-    Serial.print("Починаємо працювати...\n-------------------\n");
-
+void echoMatrix(){
     Serial.println("========================");
 
     for ( unsigned int a = 0; a < patternMaxrix1stLevelSize; a++ ) {
@@ -72,7 +59,20 @@ void setup() {
     } 
 
     Serial.println("========================"); Serial.println();
+}
 
+
+
+void setup() {
+
+    pinMode(LED,OUTPUT);
+    
+    Serial.begin(9600);
+    while (!Serial) {;}
+    
+    Serial.print("Починаємо працювати...\n-------------------\n");
+
+    echoMatrix();
 
     Serial.println(".... МЕНЮ ....");
 
