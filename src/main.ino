@@ -4,7 +4,7 @@
 
 #define time_quantum 10000 // 10 sec. Quantum of time (in milliseconds). Used in Binking pattern matrix
 #define patternMaxrix1stLevelSize 4
-#define patternMaxrix2dnLevelSize 1000
+#define patternMaxrix2dnLevelSize 30
 
 /* 
 * Binking pattern matrix
@@ -25,11 +25,11 @@ String blinkMatrixIndex[patternMaxrix1stLevelSize] = {
   "Сигнал SOS"
 };
 
-bool blinkMatrix[patternMaxrix1stLevelSize][patternMaxrix2dnLevelSize] = {
-  {0},
-  {1,0},
-  {1,1,1,0},
-  {1,0,1,0,1,0, 1,1,1,0,1,1,1,0,1,1,1,0, 1,0,1,0,1,0}
+String blinkMatrix[patternMaxrix1stLevelSize] = {
+  "0",
+  "10",
+  "1110",
+  "101010111011101110101010"
 };
 
 // ---------------------------------
@@ -54,7 +54,26 @@ void setup() {
 
     Serial.print("Привіт...\n");
     Serial.print("Починаємо працювати...\n-------------------\n");
-    
+
+    Serial.println("========================");
+
+    for ( unsigned int a = 0; a < patternMaxrix1stLevelSize; a++ ) {
+      Serial.print("Line : "); Serial.print(a);
+      Serial.print(" Label : "); Serial.print(blinkMatrixIndex[a]);
+      Serial.print(" Size : "); Serial.print(blinkMatrix[a].length());
+      Serial.print(" Content : "); Serial.print(blinkMatrix[a]); 
+      Serial.println();
+
+      // loop through columns of current row
+      for ( unsigned int j = 0; j < blinkMatrix[a].length(); j++ ) {
+        Serial.print(blinkMatrix[a].charAt(j));       Serial.print(" ");
+      }
+      Serial.println(); // start new line of output
+    } 
+
+    Serial.println("========================"); Serial.println();
+
+
     Serial.println(".... МЕНЮ ....");
 
     for(unsigned int i = 0; i < patternMaxrix1stLevelSize; i++){
@@ -63,8 +82,7 @@ void setup() {
 
     Serial.println();
     Serial.print("Сurrent state is "); Serial.write(currentState); Serial.println();
-
-    
+   
 }
 
 
@@ -81,11 +99,6 @@ void processBlink(unsigned int patternId){
   // if patternId is null of time interval doesn't pass -- do nothing
   if(!patternId || (currentTime - lastTime) < time_quantum ) return;
 
-  //debugging message
-  Serial.print("arrayIndex = "); Serial.println(arrayIndex); 
-  Serial.print("arrayPosIndex = "); Serial.println(arrayPosIndex); 
-  Serial.print("blinkMatrixIndex[arrayIndex] = "); Serial.println(blinkMatrixIndex[arrayIndex]); 
-
   if (!arrayIndex || patternId != arrayIndex) {
     arrayIndex = patternId;
     
@@ -94,21 +107,39 @@ void processBlink(unsigned int patternId){
     arrayPosIndex = 0;
   }
 
-  if (blinkMatrixIndex[arrayIndex][arrayPosIndex]){
-    
-    if (blinkMatrixIndex[arrayIndex][arrayPosIndex] == 0) digitalWrite(LED_BUILTIN, LOW);
-    else digitalWrite(LED_BUILTIN, HIGH);
+  //debugging message
+  Serial.print("arrayIndex = "); Serial.println(arrayIndex); 
+  Serial.print("arrayPosIndex = "); Serial.println(arrayPosIndex); 
+  Serial.print("blinkMatrixIndex[arrayIndex] = "); Serial.println(blinkMatrixIndex[arrayIndex]); 
 
-    lastTime = currentTime;    
-    arrayPosIndex++;
 
-    if (!blinkMatrixIndex[arrayIndex][arrayPosIndex]) arrayPosIndex = 0;
-  }
 
+  //debugging message
+  Serial.print("blinkMatrixIndex[arrayIndex][arrayPosIndex] = "); Serial.println(int(blinkMatrixIndex[arrayIndex][arrayPosIndex])); 
+
+  int theBit = blinkMatrixIndex[arrayIndex][arrayPosIndex];
+
+  //debugging message
+  Serial.print("theBit = "); Serial.println(theBit); 
+
+  if (theBit == 0) digitalWrite(LED_BUILTIN, LOW);
+  else if (theBit == 1) digitalWrite(LED_BUILTIN, HIGH);
+  else arrayPosIndex = 0;
+
+  lastTime = currentTime;    
+  arrayPosIndex++;
+
+  //debugging message
+  Serial.print("New blinkMatrixIndex[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrixIndex[arrayIndex][arrayPosIndex]); 
+
+
+  theBit = byte(blinkMatrixIndex[arrayIndex][arrayPosIndex]);
+  if (!(theBit == 0 || theBit == 1)) 
+    arrayPosIndex = 0;
 }
 
 void loop() {
-    String data;
+/*    String data;
     unsigned int patternID = 0;
     
     if (Serial.available() > 0){
@@ -139,5 +170,6 @@ void loop() {
 
     processBlink(currentState);
    
-    delay(time_quantum /*/ 10*/);
+    delay(time_quantum / 3);
+    */
 }
