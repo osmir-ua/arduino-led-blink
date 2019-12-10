@@ -111,8 +111,6 @@ void processBlink(unsigned int patternId){
   Serial.print("arrayPosIndex = "); Serial.println(arrayPosIndex); 
   Serial.print("blinkMatrixIndex[arrayIndex] = "); Serial.println(blinkMatrixIndex[arrayIndex]); 
 
-
-
   //debugging message
   Serial.print("blinkMatrix[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrix[arrayIndex].charAt(arrayPosIndex)); 
 
