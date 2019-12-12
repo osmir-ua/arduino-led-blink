@@ -71,7 +71,7 @@ void setup() {
     
     Serial.print("Починаємо працювати...\n-------------------\n");
 
-    echoMatrix();
+    // echoMatrix();
 
     Serial.println(".... МЕНЮ ....");
 
