@@ -166,6 +166,6 @@ void loop() {
 
     processBlink(currentState);
    
-    delay(time_quantum);
+    delay(time_quantum / 10);
 
 }
