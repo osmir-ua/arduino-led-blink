@@ -6,18 +6,9 @@
 #define patternMaxrix1stLevelSize 4
 #define patternMaxrix2dnLevelSize 30
 
-/* 
-* Binking pattern matrix
-* 
-* Matrix is set of blinking pattern arrays
-*
-* Each of them is array of booleans 
-*  - 1 (or other any nonzero value) turns LED ON for quantum of time
-*  - 0 turns LED OFF for quantum of time   
-*
-* Matrix index is set of blinking pattern arrays labels
+/*
+* Matrix index is set of blinking pattern array labels
 */
-
 String blinkMatrixIndex[patternMaxrix1stLevelSize] = {
   "Вимкнути",
   "Просте мигання",
@@ -25,6 +16,15 @@ String blinkMatrixIndex[patternMaxrix1stLevelSize] = {
   "Сигнал SOS"
 };
 
+/* 
+* Binking pattern matrix
+* 
+* Matrix is set of strings (blinking pattern arrays). 
+* Each character in string is 1 or 0  
+*  - 1 (or other any nonzero value) turns LED ON for quantum of time
+*  - 0 turns LED OFF for quantum of time   
+*
+*/
 String blinkMatrix[patternMaxrix1stLevelSize] = {
   "0",
   "10",
