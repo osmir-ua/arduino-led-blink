@@ -2,7 +2,7 @@
 
 #define LED 13
 
-#define time_quantum 10000 // 10 sec. Quantum of time (in milliseconds). Used in Binking pattern matrix
+#define time_quantum 1000 // 10 sec. Quantum of time (in milliseconds). Used in Binking pattern matrix
 #define patternMaxrix1stLevelSize 4
 #define patternMaxrix2dnLevelSize 30
 
@@ -67,7 +67,7 @@ void setup() {
     pinMode(LED,OUTPUT);
     
     Serial.begin(9600);
-    while (!Serial) {;}
+    while (!Serial);
     
     Serial.print("Починаємо працювати...\n-------------------\n");
 
@@ -114,7 +114,7 @@ void processBlink(unsigned int patternId){
   //debugging message
   Serial.print("blinkMatrix[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrix[arrayIndex].charAt(arrayPosIndex)); 
 
-  int theBit = blinkMatrix[arrayIndex].charAt(arrayPosIndex);
+  int theBit = blinkMatrix[arrayIndex].charAt(arrayPosIndex)-'0';
 
   //debugging message
   Serial.print("theBit = "); Serial.println(theBit); 
@@ -129,7 +129,7 @@ void processBlink(unsigned int patternId){
   //debugging message
   Serial.print("New blinkMatrix[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrix[arrayIndex].charAt(arrayPosIndex)); 
 
-  theBit = blinkMatrix[arrayIndex].charAt(arrayPosIndex);
+  theBit = blinkMatrix[arrayIndex].charAt(arrayPosIndex) - '0';
   if (!(theBit == 0 || theBit == 1)) 
     arrayPosIndex = 0;
 }
