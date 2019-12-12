@@ -90,10 +90,10 @@ void processBlink(unsigned int patternId){
   unsigned long currentTime = millis();
   
   //debugging message
-  Serial.println();
-  Serial.print("patternId = "); Serial.println(patternId); 
-  Serial.print("currentTime = "); Serial.println(currentTime); 
-  Serial.print("(currentTime - lastTime) = "); Serial.println(currentTime - lastTime); 
+  //Serial.println();
+  //Serial.print("patternId = "); Serial.println(patternId); 
+  //Serial.print("currentTime = "); Serial.println(currentTime); 
+  //Serial.print("(currentTime - lastTime) = "); Serial.println(currentTime - lastTime); 
 
   // if patternId is null of time interval doesn't pass -- do nothing
   if(!patternId || (currentTime - lastTime) < time_quantum ) return;
@@ -107,17 +107,17 @@ void processBlink(unsigned int patternId){
   }
 
   //debugging message
-  Serial.print("arrayIndex = "); Serial.println(arrayIndex); 
-  Serial.print("arrayPosIndex = "); Serial.println(arrayPosIndex); 
-  Serial.print("blinkMatrixIndex[arrayIndex] = "); Serial.println(blinkMatrixIndex[arrayIndex]); 
+  //Serial.print("arrayIndex = "); Serial.println(arrayIndex); 
+  //Serial.print("arrayPosIndex = "); Serial.println(arrayPosIndex); 
+  //Serial.print("blinkMatrixIndex[arrayIndex] = "); Serial.println(blinkMatrixIndex[arrayIndex]); 
 
   //debugging message
-  Serial.print("blinkMatrix[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrix[arrayIndex].charAt(arrayPosIndex)); 
+  //Serial.print("blinkMatrix[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrix[arrayIndex].charAt(arrayPosIndex)); 
 
   int theBit = blinkMatrix[arrayIndex].charAt(arrayPosIndex)-'0';
 
   //debugging message
-  Serial.print("theBit = "); Serial.println(theBit); 
+  //Serial.print("theBit = "); Serial.println(theBit); 
 
   if (theBit == 0) digitalWrite(LED_BUILTIN, LOW);
   else if (theBit == 1) digitalWrite(LED_BUILTIN, HIGH);
@@ -127,7 +127,7 @@ void processBlink(unsigned int patternId){
   arrayPosIndex++;
 
   //debugging message
-  Serial.print("New blinkMatrix[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrix[arrayIndex].charAt(arrayPosIndex)); 
+  //Serial.print("New blinkMatrix[arrayIndex][arrayPosIndex] = "); Serial.println(blinkMatrix[arrayIndex].charAt(arrayPosIndex)); 
 
   theBit = blinkMatrix[arrayIndex].charAt(arrayPosIndex) - '0';
   if (!(theBit == 0 || theBit == 1)) 
@@ -146,12 +146,12 @@ void loop() {
       }
 
       // status message
-      Serial.print("Entered : "); 
+      /*Serial.print("Entered : "); 
         Serial.print(data);  
         Serial.print(" ("); 
         Serial.print(patternID);
         Serial.println(")");
-      
+      */
 
       if (patternID == currentState) {
         Serial.print("Нічого не змінилось. ");
@@ -166,6 +166,6 @@ void loop() {
 
     processBlink(currentState);
    
-    delay(time_quantum / 3);
+    delay(time_quantum);
 
 }
